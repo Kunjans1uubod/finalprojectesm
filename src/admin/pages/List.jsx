@@ -9,7 +9,6 @@ const List = ({ token }) => {
   const fetchListProducts = async () => {
     try {
       const response = await axios.get(backendUrl + "/api/product/list");
-
       if (response.data.success) {
         setListProducts(response.data.products);
       } else {
@@ -17,7 +16,7 @@ const List = ({ token }) => {
       }
     } catch (error) {
       console.error(error);
-      toast.error(response.data.message);
+      toast.error(error.message);
     }
   };
 
@@ -28,7 +27,6 @@ const List = ({ token }) => {
         { id },
         { headers: { token } }
       );
-
       if (response.data.success) {
         toast.info(response.data.message);
         await fetchListProducts();
@@ -37,7 +35,7 @@ const List = ({ token }) => {
       }
     } catch (error) {
       console.error(error);
-      toast.error(response.data.message);
+      toast.error(error.message);
     }
   };
 
@@ -71,7 +69,7 @@ const List = ({ token }) => {
             <p>{item.subCategory}</p>
             <p>{currency(item.price)}</p>
             <p
-              onClick={() => removeProduct(item._id)}
+              onClick={() => removeProduct(item.id)}
               className="font-bold text-center text-gray-800 bg-red-500 rounded-full cursor-pointer md:text-center max-w-7"
             >
               X

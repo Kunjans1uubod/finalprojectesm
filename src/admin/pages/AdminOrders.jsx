@@ -92,14 +92,13 @@ const Orders = ({ token }) => {
               </p>
               <p className="mt-3">Method : {order.paymentMethod}</p>
               <p>Payment : {order.payment ? 'Done' : 'Pending'}</p>
-              <p>Date : {new Date(order.date).toLocaleDateString()}</p>
+              <p>Date : {new Date(Number(order.date)).toLocaleDateString()}</p>
             </div>
             <p className="text-sm sm-text-[15px]">
-              {currency}
-              {order.amount} $
+              {currency(order.amount)}
             </p>
             <select
-  onChange={(event) => statusHandler(event, order._id)}
+  onChange={(event) => statusHandler(event, order.id)}
   value={order.status}
   className="p-2 font-semibold text-black bg-white border border-gray-300 rounded"
 >

@@ -116,7 +116,9 @@ const getProductsData = async ()=>{
   try {
     const response = await axios.get(backendUrl+ '/api/product/list');
     if (response.data.success) {
-      setProducts(response.data.products);
+      // INFO: Normalize Prisma integer id to _id string for frontend compatibility
+      const normalized = response.data.products.map(p => ({ ...p, _id: String(p.id) }));
+      setProducts(normalized);
     }
     else{
       toast.error(response.data.message)
